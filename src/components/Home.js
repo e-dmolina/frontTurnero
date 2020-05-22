@@ -7,7 +7,7 @@ import AuthContext from '../context/autenticacion/authContext'
 import TurnoContext from '../context/turnos/turnoContext'
 
 
-const Home = () => {
+const Home = (props) => {
 
 
     // Extraer la información de autenticación
@@ -34,7 +34,8 @@ const Home = () => {
                 setDisabled(false)
             }, 3000)
         } else {
-            window.location.href = '/turnero'
+            // window.location.href = '/turnero'
+            props.history.push('/turnero')
         }
     }
 
