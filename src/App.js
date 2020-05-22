@@ -30,7 +30,7 @@ class App extends Component {
                 <Route path='/' exact component={Login} />
                 <Route path='/nueva-cuenta' exact component={NuevaCuenta} />
                 <RutaPrivada path='/home' exact component={Home} />
-                <RutaPrivada path='/turnero' component={Turnero} />
+                <RutaPrivada path='/turnero' exact component={Turnero} />
               </Switch>
             </Router>
           </TurnoState>

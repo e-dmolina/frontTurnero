@@ -28,7 +28,6 @@ const Home = (props) => {
 
     const onClick = () => {
         if (turnos.length >= 2) {
-            console.log('entro')
             setDisabled(true)
             setTimeout(() => {
                 setDisabled(false)
