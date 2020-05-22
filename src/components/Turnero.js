@@ -7,6 +7,7 @@ import { TableContainer, Paper, Table, TableCell, withStyles, TableRow, TableHea
 import Swal from 'sweetalert2';
 import TurnoContext from '../context/turnos/turnoContext'
 import { Link } from 'react-router-dom';
+import Alert from '@material-ui/lab/Alert';
 
 
 const Turnero = () => {
@@ -31,11 +32,12 @@ const Turnero = () => {
 
     // Obtener el state del context
     const turnoContext = useContext(TurnoContext)
-    const { agregarTurno, obtenerHorasDisponibles, turnosDisponibles } = turnoContext
+    const { agregarTurno, obtenerHorasDisponibles, turnosDisponibles, turnos } = turnoContext
 
     // State
     const [fechaCalendario, setFechaCalendario] = useState(new Date())
     const [fechaSeleccionada, setfechaSeleccionada] = useState(moment(new Date()).format('DD-MM-YYYY'))
+    const [disabled, setDisabled] = useState(false)
     // const [turno, setTurno] = useState({
     //     cliente: '',
     //     nombreCliente: '',
@@ -50,7 +52,7 @@ const Turnero = () => {
         //       traer turnos ocupados
         obtenerHorasDisponibles(fechaSeleccionada)
         // eslint-disable-next-line
-    }, [fechaCalendario])
+    }, [fechaCalendario, turnos])
 
 
     const onChange = async date => {
@@ -67,6 +69,11 @@ const Turnero = () => {
     }
 
     const onClickTurno = hora => {
+        if (turnos.length >= 2) {
+            console.log('ya tenes dos turnos')
+            setDisabled(true)
+            return
+        }
         const turno = { fecha: fechaSeleccionada, hora: hora }
 
         Swal.fire({
@@ -78,7 +85,8 @@ const Turnero = () => {
         }).then(resp => {
             if (resp.value) {
                 agregarTurno(turno)
-                window.location.href = '/home'
+                console.log('turno creado')
+                // window.location.href = '/home'
             }
         });
     }
@@ -138,6 +146,13 @@ const Turnero = () => {
                         </TableContainer>
                     </div>
 
+            }
+            {
+                disabled
+                &&
+                <div className='mt-5 d-flex justify-content-center'>
+                    <Alert severity="warning">No puedes agendar mas de dos turnos</Alert>
+                </div>
             }
             <div className='mt-5 d-flex justify-content-center'>
                 <Button variant="contained" color="primary">

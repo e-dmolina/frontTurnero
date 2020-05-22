@@ -59,7 +59,7 @@ const Home = (props) => {
                     disabled
                     &&
                     <div className='mt-5 d-flex justify-content-center'>
-                        <Alert severity="warning">No puedes tener mas de dos turnos agendados</Alert>
+                        <Alert severity="warning">No puedes agendar mas de dos turnos</Alert>
                     </div>
                 }
         </div>

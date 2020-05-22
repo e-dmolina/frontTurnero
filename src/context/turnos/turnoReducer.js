@@ -10,7 +10,7 @@ export default (state, action) => {
         case AGREGAR_TURNO:
             return {
                 ...state,
-                turnos: [...state, action.payload]
+                turnos: [...state.turnos, action.payload]
             }
         case ELIMINAR_TURNO:
             return {
