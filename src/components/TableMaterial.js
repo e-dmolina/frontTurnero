@@ -64,7 +64,7 @@ const TableMaterial = ({ titulos, turnosDisponibles, dateFormated }) => {
         const respuesta = await clienteAxios.get(`/api/usuarios/${t.cliente}`)
         Swal.fire({
             title: `<h5>cliente: ${respuesta.data.nombre}</h5>`,
-            html: `<p>email: ${respuesta.data.email}</p><p><a href="https://wa.me/+543512655443">Telefono: ${respuesta.data.telefono}</a></p><p>Desea eliminar el turno?</p>`,
+            html: `<p>email: ${respuesta.data.email}</p><p><a href="https://wa.me/+54${respuesta.data.telefono}">Telefono: ${respuesta.data.telefono}</a></p><p>Desea eliminar el turno?</p>`,
             icon: 'question',
             showConfirmButton: true,
             showCancelButton: true
