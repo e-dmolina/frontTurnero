@@ -33,7 +33,7 @@ const Turnero = () => {
 
     // Obtener el state del context
     const turnoContext = useContext(TurnoContext)
-    const { agregarTurno, obtenerHorasDisponibles, turnosDisponibles, turnos } = turnoContext
+    const { agregarTurno, obtenerHorasDisponibles, turnosDisponibles, turnos, cambiarHorarioAtencion } = turnoContext
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext)
@@ -48,6 +48,7 @@ const Turnero = () => {
     useEffect(() => {
         // TODO: traer turnos para el dia (horario de atencion)
         //       traer turnos ocupados
+        cambiarHorarioAtencion(moment(fechaCalendario).day())
         obtenerHorasDisponibles(fechaSeleccionada)
         // eslint-disable-next-line
     }, [fechaCalendario, turnos])
@@ -55,7 +56,7 @@ const Turnero = () => {
 
     const onChange = async date => {
 
-        if (moment(date).day() === 0) {
+        if (moment(date).day() === 0 || moment(date).day() === 1) {
             console.log('este es el date ', moment(date).day())
             return
         }

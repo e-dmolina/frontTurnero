@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import turnoContext from './turnoContext'
 import turnoReducer from './turnoReducer'
-import { OBTENER_TURNOS, AGREGAR_TURNO, ELIMINAR_TURNO, OBTENER_TURNOS_X_FECHA } from '../../types'
+import { OBTENER_TURNOS, AGREGAR_TURNO, ELIMINAR_TURNO, OBTENER_TURNOS_X_FECHA, CAMBIAR_HORARIO_X_DIA } from '../../types'
 import clienteAxios from '../../config/axios'
 
 const TurnoState = props => {
@@ -9,7 +9,7 @@ const TurnoState = props => {
     const initialState = {
         turnos: [],
         turnosDisponibles: [],
-        horarioDeAtencion: ['18:00', '18:30', '19:00', '19:30', '20:00']
+        horarioDeAtencion: []
     }
 
     // Dispatch para ejecutar las acciones
@@ -72,6 +72,17 @@ const TurnoState = props => {
         }
     }
 
+    const cambiarHorarioAtencion = async dia => {
+        try {
+            dispatch({
+                type: CAMBIAR_HORARIO_X_DIA,
+                payload: dia
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <turnoContext.Provider
             value={{
@@ -81,7 +92,8 @@ const TurnoState = props => {
                 obtenerTurnos,
                 agregarTurno,
                 eliminarTurno,
-                obtenerHorasDisponibles
+                obtenerHorasDisponibles,
+                cambiarHorarioAtencion
             }}
         >
             {props.children}
