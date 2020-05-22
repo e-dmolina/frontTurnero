@@ -9,7 +9,7 @@ import TurnoContext from '../context/turnos/turnoContext'
 import { Link } from 'react-router-dom';
 
 
-const Turnero = (props) => {
+const Turnero = () => {
 
     const StyledTableCell = withStyles(theme => ({
         head: {
@@ -78,7 +78,7 @@ const Turnero = (props) => {
         }).then(resp => {
             if (resp.value) {
                 agregarTurno(turno)
-                props.history.push('/home')
+                window.location.href = '/home'
             }
         });
     }
