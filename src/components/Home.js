@@ -12,7 +12,7 @@ const Home = (props) => {
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext)
-    const { usuarioAutenticado } = authContext
+    const { usuarioAutenticado, usuario } = authContext
 
     const turnoContext = useContext(TurnoContext)
     const { turnos, obtenerTurnos } = turnoContext
@@ -27,7 +27,7 @@ const Home = (props) => {
     }, [])
 
     const onClick = () => {
-        if (turnos.length >= 2) {
+        if (turnos.length >= 2 && usuario.rol !== 'Admin') {
             setDisabled(true)
             setTimeout(() => {
                 setDisabled(false)
