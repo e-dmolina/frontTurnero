@@ -6,6 +6,7 @@ import moment from 'moment'
 import { TableContainer, Paper, Table, TableCell, withStyles, TableRow, TableHead, TableBody, Button } from '@material-ui/core';
 import Swal from 'sweetalert2';
 import TurnoContext from '../context/turnos/turnoContext'
+import AuthContext from '../context/autenticacion/authContext'
 import { Link } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 
@@ -34,18 +35,15 @@ const Turnero = () => {
     const turnoContext = useContext(TurnoContext)
     const { agregarTurno, obtenerHorasDisponibles, turnosDisponibles, turnos } = turnoContext
 
+    // Extraer la información de autenticación
+    const authContext = useContext(AuthContext)
+    const { usuario } = authContext
+
     // State
     const [fechaCalendario, setFechaCalendario] = useState(new Date())
     const [fechaSeleccionada, setfechaSeleccionada] = useState(moment(new Date()).format('DD-MM-YYYY'))
     const [disabled, setDisabled] = useState(false)
-    // const [turno, setTurno] = useState({
-    //     cliente: '',
-    //     nombreCliente: '',
-    //     fecha: '',
-    //     hora: '',
-    //     estado: '',
-    //     creado: ''
-    // })
+
 
     useEffect(() => {
         // TODO: traer turnos para el dia (horario de atencion)
@@ -69,8 +67,7 @@ const Turnero = () => {
     }
 
     const onClickTurno = hora => {
-        if (turnos.length >= 2) {
-            console.log('ya tenes dos turnos')
+        if (turnos.length >= 2 && usuario.rol !== 'Admin') {
             setDisabled(true)
             return
         }
