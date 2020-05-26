@@ -95,13 +95,14 @@ const TableMaterial = ({ titulos, turnosDisponibles, dateFormated }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {turnosDisponibles.map((td, i) => (
-                            <StyledTableRow key={i}>
+                        {turnosDisponibles.map((td, i) => {
+                            return <StyledTableRow key={i}>
                                 <StyledTableCell component="th" scope="row" align="center" onClick={() => onClickTurno(td)}>
                                     {td.hora} {td.fecha}
                                 </StyledTableCell>
                             </StyledTableRow>
-                        ))}
+                        }
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>

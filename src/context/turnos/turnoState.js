@@ -9,7 +9,10 @@ const TurnoState = props => {
     const initialState = {
         turnos: [],
         turnosDisponibles: [],
-        horarioDeAtencion: []
+        horarioDeAtencion: [],
+        turnosParaHoy: [],
+        turnosResto: [],
+        cargandoTurnos: true
     }
 
     // Dispatch para ejecutar las acciones
@@ -89,6 +92,9 @@ const TurnoState = props => {
                 turnos: state.turnos,
                 horarioDeAtencion: state.horarioDeAtencion,
                 turnosDisponibles: state.turnosDisponibles,
+                turnosParaHoy: state.turnosParaHoy,
+                turnosResto: state.turnosResto,
+                cargandoTurnos: state.cargandoTurnos,
                 obtenerTurnos,
                 agregarTurno,
                 eliminarTurno,

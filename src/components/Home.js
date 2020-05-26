@@ -5,29 +5,30 @@ import Alert from '@material-ui/lab/Alert';
 import Barra from './Barra';
 import AuthContext from '../context/autenticacion/authContext'
 import TurnoContext from '../context/turnos/turnoContext'
-
+import { LoopCircleLoading } from 'react-loadingg'
 
 const Home = (props) => {
-
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext)
     const { usuarioAutenticado, usuario } = authContext
 
     const turnoContext = useContext(TurnoContext)
-    const { turnos, obtenerTurnos } = turnoContext
+    const { turnos, obtenerTurnos, turnosParaHoy, turnosResto } = turnoContext
 
     // State
     const [disabled, setDisabled] = useState(false)
 
     useEffect(() => {
-        usuarioAutenticado()
+        if (usuario) {
+        usuarioAutenticado()            
+        }
         obtenerTurnos()
         // eslint-disable-next-line
     }, [])
 
     const onClick = () => {
-        if (turnos.length >= 2 && usuario.rol !== 'Admin') {
+        if (turnos.length >= 1 && usuario.rol !== 'Admin') {
             setDisabled(true)
             setTimeout(() => {
                 setDisabled(false)
@@ -37,33 +38,42 @@ const Home = (props) => {
             props.history.push('/turnero')
         }
     }
-
-    return (
-        <div className='mt-3'>
-
-            <Barra />
-
-            <TableMaterial
-                titulos={["Mis Turnos"]}
-                turnosDisponibles={turnos}
-            />
-
-            <div className='mt-5 d-flex justify-content-center'>
-
-                    <Button variant="contained" color="primary" onClick={onClick} disabled={disabled}>
-                        {/* <Link style={{ color: 'white' }} to='/turnero'>Agregar Turno</Link> */}
-                            Agregar Turno
-                    </Button>
-            </div>
-            {
-                    disabled
-                    &&
+    
+        if (turnos) {
+            return (
+                <div className='mt-3'>
+        
+                    <Barra />
+        
+                    <TableMaterial
+                        titulos={["Mis turnos agendados para hoy"]}
+                        turnosDisponibles={turnosParaHoy}
+                    />
+        
+                    <TableMaterial
+                        titulos={["Mis próximos turnos agendados"]}
+                        turnosDisponibles={turnosResto}
+                    />
+        
                     <div className='mt-5 d-flex justify-content-center'>
-                        <Alert severity="warning">No puedes agendar mas de dos turnos</Alert>
+        
+                            <Button variant="contained" color="primary" onClick={onClick} disabled={disabled}>
+                                    Agregar Turno
+                            </Button>
                     </div>
-                }
-        </div>
-    )
+                    {
+                            disabled
+                            &&
+                            <div className='mt-5 d-flex justify-content-center'>
+                                <Alert severity="warning">No puedes agendar mas de 1 turno</Alert>
+                            </div>
+                        }
+                </div>
+            )
+        } else {
+            return <LoopCircleLoading/>
+        }
+        
 }
 
 export default Home

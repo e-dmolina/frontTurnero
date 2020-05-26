@@ -27,7 +27,6 @@ const AuthState = props => {
     const registrarUsuario = async datos => {
         try {
             const respuesta = await clienteAxios.post('/api/usuarios', datos)
-            console.log(respuesta.data)
             dispatch({
                 type: REGISTRO_EXITOSO,
                 payload: respuesta.data
@@ -73,7 +72,6 @@ const AuthState = props => {
     const iniciarSesion = async datos => {
         try {
             const respuesta = await clienteAxios.post('/api/auth', datos)
-            console.log(respuesta.data)
             dispatch({
                 type: LOGIN_EXITOSO,
                 payload: respuesta.data

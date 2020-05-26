@@ -9,6 +9,7 @@ import TurnoContext from '../context/turnos/turnoContext'
 import AuthContext from '../context/autenticacion/authContext'
 import { Link } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
+import { LoopCircleLoading } from 'react-loadingg';
 
 
 const Turnero = () => {
@@ -33,7 +34,12 @@ const Turnero = () => {
 
     // Obtener el state del context
     const turnoContext = useContext(TurnoContext)
-    const { agregarTurno, obtenerHorasDisponibles, turnosDisponibles, turnos, cambiarHorarioAtencion } = turnoContext
+    const { agregarTurno,
+            obtenerHorasDisponibles,
+            turnosDisponibles, 
+            turnos, 
+            cambiarHorarioAtencion,
+            cargandoTurnos } = turnoContext
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext)
@@ -46,8 +52,6 @@ const Turnero = () => {
 
 
     useEffect(() => {
-        // TODO: traer turnos para el dia (horario de atencion)
-        //       traer turnos ocupados
         cambiarHorarioAtencion(moment(fechaCalendario).day())
         obtenerHorasDisponibles(fechaSeleccionada)
         // eslint-disable-next-line
@@ -57,7 +61,6 @@ const Turnero = () => {
     const onChange = async date => {
 
         if (moment(date).day() === 0 || moment(date).day() === 1) {
-            console.log('este es el date ', moment(date).day())
             return
         }
         let dateFormated = moment(date).format('DD-MM-YYYY')
@@ -68,7 +71,7 @@ const Turnero = () => {
     }
 
     const onClickTurno = hora => {
-        if (turnos.length >= 2 && usuario.rol !== 'Admin') {
+        if (turnos.length >= 1 && usuario.rol !== 'Admin') {
             setDisabled(true)
             return
         }
@@ -85,80 +88,89 @@ const Turnero = () => {
                 agregarTurno(turno)
                 console.log('turno creado')
                 // window.location.href = '/home'
+                Swal.fire({
+                    title: 'Agendado con éxito!',
+                    text: `Has agendado un turno para el día ${turno.fecha} a las ${turno.hora}`,
+                    icon: 'info'
+                })
             }
         });
     }
 
-    return (
-        <div className="container">
-
-            <h1 style={{ color: 'black' }} align="center">Turnero</h1>
-
-            <div className='mb-3' align="center" style={{ backgroundColor: 'white' }}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={deLocale}>
-                    <KeyboardDatePicker
-                        margin="normal"
-                        id="date-picker-dialog"
-                        label="Fecha de Turno"
-                        format="dd/MM/yyyy"
-                        value={fechaCalendario}
-                        minDate={moment(new Date()).format('YYYY/MM/DD')}
-                        maxDate={moment().day(14)}
-                        onChange={onChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
-                    />
-                </MuiPickersUtilsProvider>
-            </div>
-
-            {
-                turnosDisponibles.length === 0
-                    ?
-                    <div className="alert alert-danger">
-                        <h5>No quedan tunos disponibles para el dia  {fechaSeleccionada}</h5>
-                    </div>
-                    :
-                    <div>
-                        <TableContainer component={Paper}>
-                            <Table aria-label="customized table">
-                                <TableHead>
-                                    <TableRow>
-                                        <StyledTableCell
-                                            align="center"
-                                        >
-                                            Turnos Disponibles para el dia {fechaSeleccionada}
-                                        </StyledTableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {turnosDisponibles.map((td, i) => (
-                                        <StyledTableRow key={i}>
-                                            <StyledTableCell component="th" scope="row" align="center" onClick={() => onClickTurno(td)}>
-                                                {td}
-                                            </StyledTableCell>
-                                        </StyledTableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </div>
-
-            }
-            {
-                disabled
-                &&
-                <div className='mt-5 d-flex justify-content-center'>
-                    <Alert severity="warning">No puedes agendar mas de dos turnos</Alert>
+    if (cargandoTurnos) {
+        return <LoopCircleLoading />
+    } else {
+        return (
+            <div className="container">
+    
+                <h1 style={{ color: 'black' }} align="center">Turnero</h1>
+    
+                <div className='mb-3' align="center" style={{ backgroundColor: 'white' }}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={deLocale}>
+                        <KeyboardDatePicker
+                            margin="normal"
+                            id="date-picker-dialog"
+                            label="Fecha de Turno"
+                            format="dd/MM/yyyy"
+                            value={fechaCalendario}
+                            minDate={moment(new Date()).format('YYYY/MM/DD')}
+                            maxDate={moment().day(14)}
+                            onChange={onChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+                    </MuiPickersUtilsProvider>
                 </div>
-            }
-            <div className='mt-5 d-flex justify-content-center'>
-                <Button variant="contained" color="primary">
-                    <Link style={{ color: 'white' }} to='/home'>Volver</Link>
-                </Button>
+    
+                {
+                    turnosDisponibles.length === 0
+                        ?
+                        <div className="alert alert-danger">
+                            <h5>No quedan tunos disponibles para el dia  {fechaSeleccionada}</h5>
+                        </div>
+                        :
+                        <div>
+                            <TableContainer component={Paper}>
+                                <Table aria-label="customized table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <StyledTableCell
+                                                align="center"
+                                            >
+                                                Turnos Disponibles para el dia {fechaSeleccionada}
+                                            </StyledTableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {turnosDisponibles.map((td, i) => (
+                                            <StyledTableRow key={i}>
+                                                <StyledTableCell component="th" scope="row" align="center" onClick={() => onClickTurno(td)}>
+                                                    {td}
+                                                </StyledTableCell>
+                                            </StyledTableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </div>
+    
+                }
+                {
+                    disabled
+                    &&
+                    <div className='mt-5 d-flex justify-content-center'>
+                        <Alert severity="warning">No puedes agendar mas de 1 turno</Alert>
+                    </div>
+                }
+                <div className='mt-5 d-flex justify-content-center'>
+                    <Button variant="contained" color="primary">
+                        <Link style={{ color: 'white' }} to='/home'>Volver</Link>
+                    </Button>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Turnero
