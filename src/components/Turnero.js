@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import deLocale from "date-fns/locale/es";
@@ -58,6 +59,8 @@ const Turnero = () => {
     }, [fechaCalendario, turnos])
 
 
+    const history = useHistory()
+
     const onChange = async date => {
 
         if (moment(date).day() === 0 || moment(date).day() === 1) {
@@ -87,7 +90,7 @@ const Turnero = () => {
             if (resp.value) {
                 agregarTurno(turno)
                 console.log('turno creado')
-                // window.location.href = '/home'
+                history.push('/home')
                 Swal.fire({
                     title: 'Agendado con éxito!',
                     text: `Has agendado un turno para el día ${turno.fecha} a las ${turno.hora}`,
