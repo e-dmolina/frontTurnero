@@ -60,6 +60,7 @@ const Home = (props) => {
                 <div className='mt-5 d-flex justify-content-center'>
 
                     <Button variant="contained" color="primary" onClick={onClick} disabled={disabled}>
+                        
                         Agregar Turno
                             </Button>
                 </div>

@@ -147,7 +147,10 @@ const Turnero = () => {
                                     </TableHead>
                                     <TableBody>
                                         {turnosDisponibles.map((td, i) => (
+                                            // valida que no esten disponibles los turnos iguales y anteriores a la hora actual
+                                            (td.split(':')[0] > new Date().getHours() || fechaSeleccionada !== moment(new Date()).format('DD-MM-YYYY')) && 
                                             <StyledTableRow key={i}>
+                                                {console.log(fechaSeleccionada !== moment(new Date()).format('DD-MM-YYYY'))}
                                                 <StyledTableCell component="th" scope="row" align="center" onClick={() => onClickTurno(td)}>
                                                     {td}
                                                 </StyledTableCell>
