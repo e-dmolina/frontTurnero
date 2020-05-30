@@ -49,10 +49,12 @@ const TableMaterial = ({ titulos, turnosDisponibles, dateFormated }) => {
 
         Swal.fire({
             title: 'Atención',
-            text: `Estas seguro de eliminar el turno para el día ${t.fecha} a las ${t.hora}?`,
+            text: `Estas seguro de eliminar el turno para el día ${t.fecha} a las ${t.hora} hs?`,
             icon: 'question',
             showConfirmButton: true,
-            showCancelButton: true
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
         }).then(resp => {
             if (resp.value) {
                 eliminarTurno(t._id)

@@ -99,12 +99,12 @@ export default function NuevaLogin(props) {
         }
         // validar 6 caracteres
         if (password.length < 6) {
-            mostrarAlerta('El password debe tener minimo 6 caracteres', 'alert-danger')
+            mostrarAlerta('El password debe tener un minimo de 6 caracteres', 'alert-danger')
             return
         }
         // Validar igualdad de password
         if (password !== confirmar) {
-            mostrarAlerta('Los password no son iguales', 'alert-danger')
+            mostrarAlerta('Las contraseñas no son iguales', 'alert-danger')
             return
         }
         // Pasarlo al action
@@ -169,7 +169,7 @@ export default function NuevaLogin(props) {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="Contraseña"
                         type="password"
                         id="password"
                         value={password}
@@ -181,7 +181,7 @@ export default function NuevaLogin(props) {
                         required
                         fullWidth
                         name="confirmar"
-                        label="confirmar"
+                        label="Confirmar"
                         type="password"
                         id="confirmar"
                         value={confirmar}
@@ -198,7 +198,7 @@ export default function NuevaLogin(props) {
                         color="primary"
                         className={classes.submit}
                     >
-                        Crear Sesión
+                        Crear Cuenta
                     </Button>
                     {/* <Grid container>
                         <Grid item xs>

@@ -128,7 +128,7 @@ export default function Login(props) {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="Contraseña"
                         type="password"
                         id="password"
                         autoComplete="current-password"
@@ -146,7 +146,7 @@ export default function Login(props) {
                         color="primary"
                         className={classes.submit}
                     >
-                        Sign In
+                        Iniciar Sesión
           </Button>
                     {/* <Grid container>
                         <Grid item xs>

@@ -64,6 +64,11 @@ const Turnero = () => {
     const onChange = async date => {
 
         if (moment(date).day() === 0 || moment(date).day() === 1) {
+            Swal.fire(
+                'Los días Domingo y Lunes no atendemos',
+                'Por favor seleccione otra fecha',
+                'info'
+              )
             return
         }
         let dateFormated = moment(date).format('DD-MM-YYYY')
@@ -81,20 +86,22 @@ const Turnero = () => {
         const turno = { fecha: fechaSeleccionada, hora: hora }
 
         Swal.fire({
-            title: 'Atención',
-            text: `Vas a agendar un turno para el día ${turno.fecha} a las ${turno.hora}`,
-            icon: 'question',
+            title: 'Atención!',
+            text: `Vas a agendar un turno para el día ${turno.fecha} a las ${turno.hora} hs`,
+            type: 'info',
             showConfirmButton: true,
-            showCancelButton: true
+            confirmButtonText: 'Confirmar',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar'
         }).then(resp => {
             if (resp.value) {
                 agregarTurno(turno)
                 console.log('turno creado')
                 history.push('/home')
                 Swal.fire({
-                    title: 'Agendado con éxito!',
-                    text: `Has agendado un turno para el día ${turno.fecha} a las ${turno.hora}`,
-                    icon: 'info'
+                    title: 'Turno agendado con éxito!',
+                    text: `Has agendado un turno para el día ${turno.fecha} a las ${turno.hora} hs`,
+                    type: 'info'
                 })
             }
         });
