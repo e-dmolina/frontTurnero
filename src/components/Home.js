@@ -21,7 +21,7 @@ const Home = (props) => {
 
     useEffect(() => {
         if (usuario) {
-        usuarioAutenticado()            
+            usuarioAutenticado()
         }
         obtenerTurnos()
         // eslint-disable-next-line
@@ -38,42 +38,44 @@ const Home = (props) => {
             props.history.push('/turnero')
         }
     }
-    
-        if (turnos) {
-            return (
-                <div className='mt-3'>
-        
-                    <Barra />
-        
-                    <TableMaterial
-                        titulos={["Mis turnos agendados para hoy"]}
-                        turnosDisponibles={turnosParaHoy}
-                    />
-        
-                    <TableMaterial
-                        titulos={["Mis próximos turnos agendados"]}
-                        turnosDisponibles={turnosResto}
-                    />
-        
-                    <div className='mt-5 d-flex justify-content-center'>
-        
-                            <Button variant="contained" color="primary" onClick={onClick} disabled={disabled}>
-                                    Agregar Turno
+
+
+
+    if (turnos) {
+        return (
+            <div className='mt-3'>
+
+                <Barra />
+
+                <TableMaterial
+                    titulos={["Mis turnos agendados para hoy"]}
+                    turnosDisponibles={turnosParaHoy}
+                />
+
+                <TableMaterial
+                    titulos={["Mis próximos turnos agendados"]}
+                    turnosDisponibles={turnosResto}
+                />
+
+                <div className='mt-5 d-flex justify-content-center'>
+
+                    <Button variant="contained" color="primary" onClick={onClick} disabled={disabled}>
+                        Agregar Turno
                             </Button>
-                    </div>
-                    {
-                            disabled
-                            &&
-                            <div className='mt-5 d-flex justify-content-center'>
-                                <Alert severity="warning">No puedes agendar mas de 1 turno</Alert>
-                            </div>
-                        }
                 </div>
-            )
-        } else {
-            return <LoopCircleLoading/>
-        }
-        
+                {
+                    disabled
+                    &&
+                    <div className='mt-5 d-flex justify-content-center'>
+                        <Alert severity="warning">No puedes agendar mas de 1 turno</Alert>
+                    </div>
+                }
+            </div>
+        )
+    } else {
+        return <LoopCircleLoading />
+    }
+
 }
 
 export default Home
