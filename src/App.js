@@ -28,9 +28,9 @@ class App extends Component {
             <Router>
               <Switch>
                 <Route path='/' exact component={Login} />
-                <Route path='/nueva-cuenta' exact component={NuevaCuenta} />
-                <RutaPrivada path='/home' exact component={Home} />
-                <RutaPrivada path='/turnero' exact component={Turnero} />
+                <Route path='/nueva-cuenta' component={NuevaCuenta} />
+                <RutaPrivada path='/home' component={Home} />
+                <RutaPrivada path='/turnero' component={Turnero} />
               </Switch>
             </Router>
           </TurnoState>

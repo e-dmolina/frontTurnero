@@ -6,6 +6,7 @@ import Barra from './Barra';
 import AuthContext from '../context/autenticacion/authContext'
 import TurnoContext from '../context/turnos/turnoContext'
 import { LoopCircleLoading } from 'react-loadingg'
+import AddIcon from '@material-ui/icons/Add';
 
 const Home = (props) => {
 
@@ -60,7 +61,7 @@ const Home = (props) => {
                 <div className='mt-5 d-flex justify-content-center'>
 
                     <Button variant="contained" color="primary" onClick={onClick} disabled={disabled}>
-                        
+                        <AddIcon/>
                         Agregar Turno
                             </Button>
                 </div>

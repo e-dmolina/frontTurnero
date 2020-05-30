@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,7 +47,10 @@ const Barra = () => {
                     }
 
 
-                    <Button color="inherit" onClick={() => cerrarSesion()}>Cerrar Sesión</Button>
+                    <Button color="inherit" onClick={() => cerrarSesion()}>
+                        Cerrar Sesión
+                        <ExitToAppIcon/>
+                        </Button>
                 </Toolbar>
             </AppBar>
         </div>

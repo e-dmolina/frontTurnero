@@ -147,7 +147,7 @@ export default function NuevaLogin(props) {
                         required
                         fullWidth
                         id="telefono"
-                        label="Telefono"
+                        label="Telefono (con característica)"
                         name="telefono"
                         value={telefono}
                         onChange={onChange}
