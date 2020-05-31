@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: "#123661",
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -99,7 +99,7 @@ export default function NuevaLogin(props) {
         }
         // validar 6 caracteres
         if (password.length < 6) {
-            mostrarAlerta('El password debe tener un minimo de 6 caracteres', 'alert-danger')
+            mostrarAlerta('La contraseña debe tener un minimo de 6 caracteres', 'alert-danger')
             return
         }
         // Validar igualdad de password
@@ -147,7 +147,7 @@ export default function NuevaLogin(props) {
                         required
                         fullWidth
                         id="telefono"
-                        label="Telefono (con característica)"
+                        label="Teléfono (con característica)"
                         name="telefono"
                         value={telefono}
                         onChange={onChange}

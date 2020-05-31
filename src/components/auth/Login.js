@@ -156,7 +156,7 @@ export default function Login(props) {
                 </div>
                 {alerta && <Alert severity='error'>{alerta.msg}</Alert>}
             </div>
-            <Box mt={8}>
+            <Box mt={18}>
                 <Copyright />
             </Box>
         </Container>

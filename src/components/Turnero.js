@@ -36,11 +36,11 @@ const Turnero = () => {
     // Obtener el state del context
     const turnoContext = useContext(TurnoContext)
     const { agregarTurno,
-            obtenerHorasDisponibles,
-            turnosDisponibles, 
-            turnos, 
-            cambiarHorarioAtencion,
-            cargandoTurnos } = turnoContext
+        obtenerHorasDisponibles,
+        turnosDisponibles,
+        turnos,
+        cambiarHorarioAtencion,
+        cargandoTurnos } = turnoContext
 
     // Extraer la información de autenticación
     const authContext = useContext(AuthContext)
@@ -68,7 +68,7 @@ const Turnero = () => {
                 'Los días Domingo y Lunes no atendemos',
                 'Por favor seleccione otra fecha',
                 'info'
-              )
+            )
             return
         }
         let dateFormated = moment(date).format('DD-MM-YYYY')
@@ -112,9 +112,9 @@ const Turnero = () => {
     } else {
         return (
             <div className="container">
-    
+
                 <h2 style={{ color: 'black' }} align="center">Turnero</h2>
-    
+
                 <div className='mb-3' align="center" style={{ backgroundColor: 'white' }}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={deLocale}>
                         <KeyboardDatePicker
@@ -132,12 +132,12 @@ const Turnero = () => {
                         />
                     </MuiPickersUtilsProvider>
                 </div>
-    
+
                 {
                     turnosDisponibles.length === 0
                         ?
-                        <div className="alert alert-danger">
-                            <h5>No quedan tunos disponibles para el dia  {fechaSeleccionada}</h5>
+                        <div className="d-flex justify-content-center">
+                            <Alert severity='error'>No hay turnos disponibles para el día ${fechaSeleccionada}</Alert>
                         </div>
                         :
                         <div>
@@ -155,7 +155,7 @@ const Turnero = () => {
                                     <TableBody>
                                         {turnosDisponibles.map((td, i) => (
                                             // valida que no esten disponibles los turnos iguales y anteriores a la hora actual
-                                            (td.split(':')[0] > new Date().getHours() || fechaSeleccionada !== moment(new Date()).format('DD-MM-YYYY')) && 
+                                            (td.split(':')[0] > new Date().getHours() || fechaSeleccionada !== moment(new Date()).format('DD-MM-YYYY')) &&
                                             <StyledTableRow key={i}>
                                                 {console.log(fechaSeleccionada !== moment(new Date()).format('DD-MM-YYYY'))}
                                                 <StyledTableCell component="th" scope="row" align="center" onClick={() => onClickTurno(td)}>
@@ -167,7 +167,7 @@ const Turnero = () => {
                                 </Table>
                             </TableContainer>
                         </div>
-    
+
                 }
                 {
                     disabled
