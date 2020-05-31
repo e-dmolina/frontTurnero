@@ -7,7 +7,6 @@ import AuthContext from '../context/autenticacion/authContext'
 import TurnoContext from '../context/turnos/turnoContext'
 import { LoopCircleLoading } from 'react-loadingg'
 import AddIcon from '@material-ui/icons/Add';
-import coliseo from '../img/coliseo.png'
 
 const Home = (props) => {
 
