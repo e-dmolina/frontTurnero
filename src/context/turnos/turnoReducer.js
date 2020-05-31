@@ -39,10 +39,16 @@ export default (state, action) => {
                     ...state,
                     horarioDeAtencion: ['16:00', '17:00', '18:00', '19:00', '20:00']
                 }
-            } else /*if (action.payload === 3)*/ { //miercoles
+            } else if (action.payload === 3) { //miercoles
                 return {
                     ...state,
                     horarioDeAtencion: ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
+                }
+            }
+            else {
+                return {
+                    ...state,
+                    horarioDeAtencion: []
                 }
             }
         default:

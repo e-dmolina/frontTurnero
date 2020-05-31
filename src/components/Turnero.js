@@ -113,7 +113,7 @@ const Turnero = () => {
         return (
             <div className="container">
     
-                <h1 style={{ color: 'black' }} align="center">Turnero</h1>
+                <h2 style={{ color: 'black' }} align="center">Turnero</h2>
     
                 <div className='mb-3' align="center" style={{ backgroundColor: 'white' }}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={deLocale}>
