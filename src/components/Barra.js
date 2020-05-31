@@ -42,13 +42,13 @@ const Barra = () => {
                         usuario
                         &&
                         <Typography variant="h6" className={classes.title}>
-                            Hola <span>{usuario.nombre}</span>
+                            Hola <span>{usuario.nombre}!</span>
                         </Typography>
                     }
 
 
                     <Button color="inherit" onClick={() => cerrarSesion()}>
-                        Cerrar Sesión
+                        Salir
                         <ExitToAppIcon/>
                         </Button>
                 </Toolbar>

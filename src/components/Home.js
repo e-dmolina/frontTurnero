@@ -7,6 +7,7 @@ import AuthContext from '../context/autenticacion/authContext'
 import TurnoContext from '../context/turnos/turnoContext'
 import { LoopCircleLoading } from 'react-loadingg'
 import AddIcon from '@material-ui/icons/Add';
+import coliseo from '../img/coliseo.png'
 
 const Home = (props) => {
 
@@ -47,6 +48,10 @@ const Home = (props) => {
             <div className='mt-3'>
 
                 <Barra />
+
+                {/* <div className="text-center mt-5 p-3">
+                    <img src={coliseo} alt="" width="200"/>
+                </div> */}
 
                 <TableMaterial
                     titulos={["Mis turnos agendados para hoy"]}

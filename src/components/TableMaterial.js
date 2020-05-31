@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import TurnoContext from '../context/turnos/turnoContext'
 import AuthContext from '../context/autenticacion/authContext'
 import clienteAxios from '../config/axios'
+import Alert from '@material-ui/lab/Alert';
 
 const StyledTableCell = withStyles(theme => ({
     head: {
@@ -65,11 +66,13 @@ const TableMaterial = ({ titulos, turnosDisponibles, dateFormated }) => {
     const buscarUsuario = async t => {
         const respuesta = await clienteAxios.get(`/api/usuarios/${t.cliente}`)
         Swal.fire({
-            title: `<h5>cliente: ${respuesta.data.nombre}</h5>`,
-            html: `<p>email: ${respuesta.data.email}</p><p><a href="https://wa.me/+54${respuesta.data.telefono}">Telefono: ${respuesta.data.telefono}</a></p><p>Desea eliminar el turno?</p>`,
+            title: `<h5>Cliente: ${respuesta.data.nombre}</h5>`,
+            html: `<p>Email: ${respuesta.data.email}</p><p><a href="https://wa.me/+54${respuesta.data.telefono}">Telefono: ${respuesta.data.telefono}</a></p><p>Desea eliminar el turno?</p>`,
             icon: 'question',
             showConfirmButton: true,
-            showCancelButton: true
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar'
         }).then(resp => {
             if (resp.value) {
                 eliminarTurno(t._id)
@@ -97,14 +100,22 @@ const TableMaterial = ({ titulos, turnosDisponibles, dateFormated }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {turnosDisponibles.map((td, i) => {
-                            return <StyledTableRow key={i}>
-                                <StyledTableCell component="th" scope="row" align="center" onClick={() => onClickTurno(td)}>
-                                    {td.hora} {td.fecha}
-                                </StyledTableCell>
-                            </StyledTableRow>
+                        {
+                            turnosDisponibles.length > 0
+                                ?
+
+                                turnosDisponibles.map((td, i) => {
+                                    return <StyledTableRow key={i}>
+                                        <StyledTableCell component="th" scope="row" align="center" onClick={() => onClickTurno(td)}>
+                                            {td.hora} {td.fecha}
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                })
+                                :
+                                <div className="d-flex justify-content-center">
+                                    <Alert severity='error'>No hay turnos agendados en esta lista</Alert>
+                                </div>
                         }
-                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
