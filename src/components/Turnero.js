@@ -137,7 +137,7 @@ const Turnero = () => {
                     turnosDisponibles.length === 0
                         ?
                         <div className="d-flex justify-content-center">
-                            <Alert severity='error'>No hay turnos disponibles para el día ${fechaSeleccionada}</Alert>
+                            <Alert severity='error'>No hay turnos disponibles para el día {fechaSeleccionada}</Alert>
                         </div>
                         :
                         <div>
